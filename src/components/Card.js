@@ -1,9 +1,8 @@
 import React from 'react';
-//<img src={'https://robohash.org/'+props.name+'?200x200'} alt='robots'/>
 
 const Card = ({id,name,email}) =>{
     return (
-        <div className='bg-light-green grow ba bw2 br3 pa3 ma2 dib shadow-5 tc'>
+        <div className='bg-light-green grow ba bw1 br3 pa2 ma2 dib shadow-5 tc'>
             <img src={`https://robohash.org/${id+name}?200x200`} alt='robots'/>
             <div>
                 <h2>{name}</h2>
@@ -12,5 +11,4 @@ const Card = ({id,name,email}) =>{
         </div>
     );
 }
-
 export default Card
