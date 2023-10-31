@@ -9,6 +9,7 @@ function App() {
 
     const [robots, setRobots] = useState([]);
     const [searchfield, setSearchfield] = useState('');
+    const [count, setCount] = useState(0);
 
     const onSearchChange = (event) => {
         setSearchfield(event.target.value);
@@ -18,7 +19,8 @@ function App() {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response=> response.json())
             .then(users=>setRobots(users));
-    },[])
+        console.log(count)
+    },[count])
     
     const filteredRobots = robots.filter(robots=>{
         return robots.name.toLowerCase().includes(searchfield.toLowerCase())
@@ -33,6 +35,7 @@ function App() {
         return(
         <div className='tc'>
             <h1>robofriends</h1>
+            <button onClick={() => setCount(count + 1)}>Click Me!</button>
             <Searchbox searchChange={onSearchChange}/>
             <Scroll>
                 <ErrorBoundry>
