@@ -4,13 +4,19 @@ import './index.css';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
-import { searchRobots } from './reducers';
-import { Provider, connect } from 'react-redux';
+import { searchRobots, requestRobots } from './reducers';
+import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-const store = configureStore(searchRobots);
-
+const store = configureStore({
+  reducer: combineReducers(searchRobots, requestRobots),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+  //   thunk: {
+  //     extraArgument: helpers,
+  //   },
+  // }),
+});
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

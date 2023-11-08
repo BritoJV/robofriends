@@ -4,24 +4,28 @@ import Searchbox from '../components/Searchbox';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
 import './App.css';
-import { setSearchField } from '../actions';
+import { setSearchField, requestRobots } from '../actions';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
     return {
-        searchField: state.searchRobots.searchField
+        searchField: state.searchRobots.searchField,
+        robots: state.requestRobots.robots,
+        isPending: state.requestRobots.isPending,
+        error: state.requestRobots.error,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onRequestRobots: () => dispatch(requestRobots()),
     }
 }
 
 function App() {
 
-    const [robots, setRobots] = useState([]);
+    // const [robots, setRobots] = useState([]);
     // const [searchfield, setSearchfield] = useState('');
     const [count, setCount] = useState(0);
 
@@ -29,23 +33,22 @@ function App() {
     //     setSearchfield(event.target.value);
     // }
 
-    const { searchField, onSearchChange } = this.props;
+    const { searchField, onSearchChange, robots, isPending } = this.props;
 
+    console.log(this.props)
 
-    useEffect(() => {
-        console.log(this.props.store)
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response=> response.json())
-            .then(users=>setRobots(users));
-        console.log(count)
-    },[count])
+    // useEffect(() => {
+    //     console.log(this.props.store)
+    //     this.props.onRequestRobots()
+    //     console.log(count)
+    // },[])
     
     const filteredRobots = robots.filter(robots=>{
         return robots.name.toLowerCase().includes(searchField.toLowerCase())
         }
     )
 
-    if (!robots.length){
+    if (isPending){
         return (
             <h1 className='tc'>Loading...</h1>
         )
