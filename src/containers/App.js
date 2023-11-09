@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Cardlist from '../components/Cardlist';
 import Searchbox from '../components/Searchbox';
 import Scroll from '../components/Scroll';
@@ -11,7 +11,6 @@ import { fetchRobots } from '../state/robotsSlice';
 
 function App() {
 
-    // const [robots, setRobots] = useState([]);
     const dispatch = useDispatch();
     const count = useSelector((state) => state.counter.value);
     const searchfield = useSelector((state) => state.searchfield.value);
@@ -22,13 +21,8 @@ function App() {
     }
 
     useEffect(() => {
-        // fetch('https://jsonplaceholder.typicode.com/users')
-        //     .then(response=> response.json())
-        //     .then(users=>setRobots(users));
-        // console.log(count)
-        // console.log(robotsB);
         dispatch(fetchRobots());
-    },[count])
+    },[count, dispatch])
     
     const filteredRobots = robotsB.filter(robots=>{
         return robots.name.toLowerCase().includes(searchfield.toLowerCase())

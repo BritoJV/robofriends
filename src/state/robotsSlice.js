@@ -22,7 +22,6 @@ const robotsSlice = createSlice({
 export const fetchRobots = createAsyncThunk(
     "robots/fetchRobots",
     async () =>{
-        console.log("running");
         const response = await fetch('https://jsonplaceholder.typicode.com/users');
         const users = await response.json();
         return users
