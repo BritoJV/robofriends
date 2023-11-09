@@ -6,7 +6,7 @@ const initialState = {
 
 const searchfieldSlice = createSlice({
   name: 'searchfield',
-  initialState: initialState,
+  initialState,
   reducers: {
     setSearchField: (state, action) => {
         state.value = action.payload;

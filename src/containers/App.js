@@ -7,30 +7,34 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment } from '../state/counterSlice';
 import { setSearchField } from '../state/searchfieldSlice';
+import { fetchRobots } from '../state/robotsSlice';
 
 function App() {
 
-    const [robots, setRobots] = useState([]);
+    // const [robots, setRobots] = useState([]);
     const dispatch = useDispatch();
     const count = useSelector((state) => state.counter.value);
     const searchfield = useSelector((state) => state.searchfield.value);
+    const robotsB = useSelector((state) => state.robots.value);
 
     const onSearchChange = (event) => {
         dispatch(setSearchField(event.target.value));
     }
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response=> response.json())
-            .then(users=>setRobots(users));
+        // fetch('https://jsonplaceholder.typicode.com/users')
+        //     .then(response=> response.json())
+        //     .then(users=>setRobots(users));
         // console.log(count)
+        // console.log(robotsB);
+        dispatch(fetchRobots());
     },[count])
     
-    const filteredRobots = robots.filter(robots=>{
+    const filteredRobots = robotsB.filter(robots=>{
         return robots.name.toLowerCase().includes(searchfield.toLowerCase())
         }
     )
-    if (!robots.length){
+    if (!robotsB.length){
         return (
             <h1 className='tc'>Loading...</h1>
         )
