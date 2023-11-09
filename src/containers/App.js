@@ -4,12 +4,17 @@ import Searchbox from '../components/Searchbox';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment } from '../state/counterSlice';
 
 function App() {
 
     const [robots, setRobots] = useState([]);
     const [searchfield, setSearchfield] = useState('');
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
+    const dispatch = useDispatch();
+    const count = useSelector((state) => state.counter.value);
+    
 
     const onSearchChange = (event) => {
         setSearchfield(event.target.value);
@@ -35,7 +40,7 @@ function App() {
         return(
         <div className='tc'>
             <h1>robofriends</h1>
-            <button onClick={() => setCount(count + 1)}>Click Me!</button>
+            <button onClick={() => dispatch(increment())}>Click Me!</button>
             <Searchbox searchChange={onSearchChange}/>
             <Scroll>
                 <ErrorBoundry>
